@@ -11,7 +11,7 @@ const NotebookTitle = ( {id, character, removeNotebook, onClick} ) => {
     }
 
     const handleDeleteNotebook = () => {
-        fetch(`/notebooks/${id}`, { method: 'DELETE' }).then((res) => {
+        fetch(`/api/notebooks/${id}`, { method: 'DELETE' }).then((res) => {
             if (res.ok) {
                 removeNotebook(id)
                 history.push('/notebooks')

@@ -18,7 +18,7 @@ function App() {
   const history = useHistory()
 
   useEffect(() => {
-    fetch('/characters')
+    fetch('/api/characters')
       .then((res) => res.json())
       .then(setChars)
       .catch((err) => console.log(err));
@@ -81,7 +81,7 @@ function App() {
   };
 
   function deleteUser() {
-    fetch(`/users/${user.id}`, { method: 'DELETE' }).then((res) => {
+    fetch(`/api/users/${user.id}`, { method: 'DELETE' }).then((res) => {
       if (res.ok) {
         removeUser(user);
         alert('Successfully deleted user');
@@ -94,7 +94,7 @@ function App() {
   }
 
   function handleLogoutClick() {
-    fetch('/logout', { method: 'DELETE' }).then((res) => {
+    fetch('/api/logout', { method: 'DELETE' }).then((res) => {
       if (res.ok) {
         updateUser(null);
         history.push('/authentication');
@@ -104,7 +104,7 @@ function App() {
 
   useEffect(() => {
     const fetchUser = () => {
-      fetch('/authenticate').then((res) => {
+      fetch('/api/authenticate').then((res) => {
         if (res.ok) {
           res.json().then(setInitialUser);
         } else {

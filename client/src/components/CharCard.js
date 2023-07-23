@@ -5,7 +5,7 @@ const CharCard = ({ name, id, user, addUserChar, removeUserChar, addNotebook }) 
     const [char, setChar] = useState([])
 
     const handleAddMain = () => {
-        fetch('/user-characters', {
+        fetch('/api/user-characters', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ id }),
@@ -25,7 +25,7 @@ const CharCard = ({ name, id, user, addUserChar, removeUserChar, addNotebook }) 
     }
 
     const handleRemoveMain = () => {
-        fetch(`/user-characters/${id}`, { method: 'DELETE' }).then((res) => {
+        fetch(`/api/user-characters/${id}`, { method: 'DELETE' }).then((res) => {
             if (res.ok) {
                 const characterUserId = user?.user_characters.find(
                     (character) => character?.character?.name === name
@@ -39,7 +39,7 @@ const CharCard = ({ name, id, user, addUserChar, removeUserChar, addNotebook }) 
     }
 
     const handleAddNotebook = () => {
-        fetch('/notebooks', {
+        fetch('/api/notebooks', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ id }),

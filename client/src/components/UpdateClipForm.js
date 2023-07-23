@@ -46,7 +46,7 @@ const UpdateClipForm = ( {notebook_id, clip, handleUpdate} ) => {
 
           onSubmit: async (values, {setErrors, resetForm, setSubmitting}) => {
             setSubmitting(true);
-            fetch(`/notebooks/${notebook_id}/clips/${clip.id}`, {
+            fetch(`/api/notebooks/${notebook_id}/clips/${clip.id}`, {
                 method: 'PATCH',
                 headers: {
                     'Content-Type': 'application/json',

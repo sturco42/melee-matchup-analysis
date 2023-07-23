@@ -34,7 +34,7 @@ const Authentication = ({ updateUser }) => {
         validationSchema: formSchema,
         onSubmit: async (values, { resetForm }) => {
             try {
-              const response = await fetch(signUp ? '/signup' : '/login', {
+              const response = await fetch(signUp ? '/api/signup' : '/api/login', {
                 method: 'POST',
                 headers: {
                   'Content-Type': 'application/json',

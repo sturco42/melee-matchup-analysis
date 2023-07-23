@@ -1,4 +1,4 @@
-from flask import request, make_response, session
+from flask import request, make_response, session, render_template
 from flask_restful import Resource
 import bcrypt
 
@@ -7,16 +7,27 @@ from models import db, UserCharacter, User, Character, Notebook, Clip
 from config import app, db, api
 
 @app.route('/')
+@app.route('/users/:id')
+@app.route('/characters')
+@app.route('/login')
+@app.route('/notebooks')
+@app.route('/notebooks/:id/clips')
+@app.route('/contact-us')
+
+def index(id=0):
+    return render_template("index.html")
+
+@app.route('/')
 def home():
     return '<h1>Welcome to Melee Mentor</h1>'
 
-@app.route('/authenticate', methods=['GET'])
+@app.route('/api/authenticate', methods=['GET'])
 def get():
     if session.get('user_id') and db.session.get(User, session['user_id']):
         return make_response(db.session.get(User, session['user_id']).to_dict(), 200)
     return make_response({'error': 'Unauthorized' }, 401)
 
-@app.route('/signup', methods=['POST'])
+@app.route('/api/signup', methods=['POST'])
 def signup():
     try:
         username = request.get_json().get('username')
@@ -37,7 +48,7 @@ def signup():
     except Exception as e:
         return make_response({'error': str(e)}, 500)
 
-@app.route('/login', methods=['POST'])
+@app.route('/api/login', methods=['POST'])
 def login():
     print('we are in the login post')
     try:
@@ -55,7 +66,7 @@ def login():
     except Exception as e:
         return make_response({'error': str(e)}, 500)
 
-@app.route('/logout', methods=['DELETE'])
+@app.route('/api/logout', methods=['DELETE'])
 def logout():
     if session.get('user_id'):
         session['user_id'] = None

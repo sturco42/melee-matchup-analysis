@@ -8,7 +8,7 @@ const Clips = ( {notebook_id, onClose} ) => {
     const [clips, setClips] = useState([])
     
     useEffect(() => {
-        fetch(`/notebooks/${notebook_id}/clips`)
+        fetch(`/api/notebooks/${notebook_id}/clips`)
         .then((res) => res.json())
         .then(setClips)
         .catch((err) => console.log(err));
@@ -17,7 +17,7 @@ const Clips = ( {notebook_id, onClose} ) => {
 
 
     const handleDeleteClip = (clipId) => {
-        fetch(`/notebooks/${notebook_id}/clips/${clipId}`, {
+        fetch(`/api/notebooks/${notebook_id}/clips/${clipId}`, {
             method: 'DELETE',
         })
         .then((res) => {
@@ -41,7 +41,7 @@ const Clips = ( {notebook_id, onClose} ) => {
     //     title: 'theUpdataTitleData'
     // }
     // const handleUpdateClip = (clipId, clipObjectData) => {
-    //     fetch(`/notebooks/${notebook_id}/clips/${clipId}`, {
+    //     fetch(`/api/notebooks/${notebook_id}/clips/${clipId}`, {
     //         method: 'PATCH',
     //         //body: JSON.stringify(clipObjectData),
     //     })
@@ -62,7 +62,7 @@ const Clips = ( {notebook_id, onClose} ) => {
     // // fetch the updated clips from the backend, just like we do in useEffect on clips.js line 11
     // // just like in use effect above, update our state with the new clips
     // // e.g. 
-    //     fetch(`/notebooks/${notebook_id}/clips`)
+    //     fetch(`/api/notebooks/${notebook_id}/clips`)
     // .then((res) => res.json())
     // .then(setClips)
     // .catch((err) => console.log(err));

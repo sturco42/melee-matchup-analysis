@@ -27,7 +27,7 @@ const UpdateUserForm = ({ updateUser, user, toggleForm }) => {
     validationSchema: updateSchema,
     onSubmit: (values, { setErrors, setSubmitting, resetForm }) => {
       setSubmitting(true);
-      fetch(`/users/${user.id}`, {
+      fetch(`/api/users/${user.id}`, {
         method: 'PATCH',
         headers: {
           'Content-Type': 'application/json',

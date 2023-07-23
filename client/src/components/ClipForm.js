@@ -44,7 +44,7 @@ const ClipForm = ( {notebook_id} ) => {
 
           onSubmit: async (values, {setErrors}) => {
             
-            fetch(`/notebooks/${notebook_id}/clips`, {
+            fetch(`/api/notebooks/${notebook_id}/clips`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

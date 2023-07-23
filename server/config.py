@@ -5,14 +5,26 @@ from flask_restful import Api
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import MetaData
 from flask_bcrypt import Bcrypt
+import os
 from os import environ
 from dotenv import load_dotenv
 
-app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///app.db'
+app = Flask(__name__,
+            static_url_path='',
+            static_folder='../client/build',
+            template_folder='../client/build'
+            )
+
+uri = os.getenv("DATABASE_URL")  # or other relevant config var
+if uri.startswith("postgres://"):
+    uri = uri.replace("postgres://", "postgresql://", 1)
+# rest of connection code using the connection string `uri`
+
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URI')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.json.compact = False
 
+# this maybe needs to be empty
 load_dotenv('.env')
 app.secret_key = environ.get('SECRET_KEY')
 
@@ -23,7 +35,7 @@ db = SQLAlchemy(metadata=metadata)
 migrate = Migrate(app, db)
 db.init_app(app)
 
-api = Api(app)
+api = Api(app, prefix='/api')
 
 CORS(app)
 
