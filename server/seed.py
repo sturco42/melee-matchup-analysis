@@ -1,5 +1,4 @@
 from random import choice as rc
-import random
 
 from faker import Faker
 from flask import Flask
@@ -7,10 +6,14 @@ from flask import Flask
 from app import app
 from models import db, UserCharacter, User, Character, Notebook, Clip
 
-import bcrypt
+import bcrypt, os
 
-app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///app.db'
+# app = Flask(__name__,
+#             static_url_path='',
+#             static_folder='../client/build',
+#             template_folder='../client/build'
+#             )
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URI')
 
 db.init_app(app)
 
