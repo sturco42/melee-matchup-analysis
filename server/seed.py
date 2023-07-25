@@ -13,9 +13,9 @@ import bcrypt, os
 #             static_folder='../client/build',
 #             template_folder='../client/build'
 #             )
-app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URI')
+# app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URI')
 
-db.init_app(app)
+# db.init_app(app)
 
 with app.app_context():
     db.create_all()
