@@ -53,7 +53,7 @@ const CharCard = ({ name, id, user, addUserChar, removeUserChar, addNotebook }) 
         })
     }
 
-    if (!char) return 'Loading...'
+    // if (!char) return 'Loading...'
 
     const mains = user?.user_characters?.map((main) => main.character) || []
 
