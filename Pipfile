@@ -16,6 +16,7 @@ ipdb = "*"
 flask-bcrypt = "*"
 psycopg2-binary = "*"
 gunicorn = "*"
+bcrypt = "*"
 
 [dev-packages]
 
