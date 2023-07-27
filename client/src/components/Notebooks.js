@@ -1,14 +1,14 @@
-import React, { useState, useContext } from 'react'
+import React, { useState } from 'react'
 import Clips from './Clips'
 import NotebookTitle from './NotebookTitle'
-import { UserContext } from './UserContext'
+// import { UserContext } from './UserContext'
 
 const Notebooks = ( {notebooksToDisplay, removeNotebook} ) => {
 
     const [notebookIsSelected, setNotebookIsSelected] = useState(false)
     const [selectedNotebook, setSelectedNotebook] = useState(null)
 
-    const user = useContext(UserContext)
+    // const user = useContext(UserContext)
 
     const handleClick = (data) => {
         setNotebookIsSelected((currentValue) => !currentValue)

@@ -1,10 +1,10 @@
-import React, { useEffect, useState, useContext } from 'react'
+import React, { useEffect, useState } from 'react'
 import ClipCard from './ClipCard'
-import { UserContext } from './UserContext'
+// import { UserContext } from './UserContext'
 import ClipForm from './ClipForm'
 
 const Clips = ( {notebook_id, onClose} ) => {
-    const user = useContext(UserContext)
+    // const user = useContext(UserContext)
     const [clips, setClips] = useState([])
     
     useEffect(() => {
