@@ -30,6 +30,7 @@ def create_users():
         salt = bcrypt.gensalt()
         password = 'password'
         hashed_password = bcrypt.hashpw(password.encode('utf-8'), salt)
+        hashed_password = hashed_password.decode('utf-8')
         user = User(
             username = fake.user_name(),
             password_hash = hashed_password,

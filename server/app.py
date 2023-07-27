@@ -34,15 +34,13 @@ def signup():
         password = request.get_json().get('password') 
         salt = bcrypt.gensalt()
         # print(type(password))
-        print('signup passwrod: ', password)
         # import ipdb; ipdb.set_trace()
         hashed_password = bcrypt.hashpw(password.encode('utf-8'), salt)
-        print('signup password to be committed: ', hashed_password)
+        hashed_password = hashed_password.decode('utf-8')
         user = User(
             username=username,
             password_hash=hashed_password
         )
-        print('hashed pw as on user model', user.password_hash)
         db.session.add(user)
         db.session.commit()
         session['user_id'] = user.id
@@ -59,23 +57,17 @@ def login():
         password = request.get_json().get('password')
         user = User.query.filter_by(username=username).first()
       
-        print('before salt gen')
         salt = bcrypt.gensalt()
         hashed_password = bcrypt.hashpw(password.encode('utf-8'), salt)
-        print('hashed pw from db', user.password_hash)
-        print('after hashed password created', hashed_password) 
-        if user and bcrypt.checkpw(hashed_password, user.password_hash):
+        #hashed_password = hashed_password.decode('utf-8')
+        if user and bcrypt.checkpw(hashed_password, user.password_hash.encode('utf-8')):
             session['user_id'] = user.id
-            print('in one')
             return make_response(user.to_dict(), 200)
-        elif user and not bcrypt.checkpw(hashed_password, user.password_hash):
-            print('in two')
+        elif user and not bcrypt.checkpw(hashed_password, user.password_hash.encode('utf-8')):
             return make_response({'error': 'Incorrect password'}, 401)
         else:
-            print('in three')
             return make_response({'error': 'User does not exist'}, 401)
     except Exception as e:
-        print('we are in the final exception')
         return make_response({'error': str(e)}, 500)
 
 @app.route('/api/logout', methods=['DELETE'])
