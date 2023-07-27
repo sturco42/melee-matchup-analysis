@@ -17,7 +17,7 @@ from config import app, db, api
 def index(id=0):
     return render_template("index.html")
 
-@app.route('/')
+@app.route('/api/')
 def home():
     return '<h1>Welcome to Melee Mentor</h1>'
 
@@ -31,16 +31,18 @@ def get():
 def signup():
     try:
         username = request.get_json().get('username')
-        password = request.get_json().get('password')
+        password = request.get_json().get('password') 
         salt = bcrypt.gensalt()
         # print(type(password))
+        print('signup passwrod: ', password)
         # import ipdb; ipdb.set_trace()
         hashed_password = bcrypt.hashpw(password.encode('utf-8'), salt)
-        # print(hashed_password)
+        print('signup password to be committed: ', hashed_password)
         user = User(
             username=username,
             password_hash=hashed_password
         )
+        print('hashed pw as on user model', user.password_hash)
         db.session.add(user)
         db.session.commit()
         session['user_id'] = user.id
@@ -50,20 +52,30 @@ def signup():
 
 @app.route('/api/login', methods=['POST'])
 def login():
-    print('we are in the login post')
+    # print('we are in the login post')
+
     try:
         username = request.get_json().get('username')
         password = request.get_json().get('password')
         user = User.query.filter_by(username=username).first()
-        if user and bcrypt.checkpw(password.encode('utf-8'), user.password_hash):
+      
+        print('before salt gen')
+        salt = bcrypt.gensalt()
+        hashed_password = bcrypt.hashpw(password.encode('utf-8'), salt)
+        print('hashed pw from db', user.password_hash)
+        print('after hashed password created', hashed_password) 
+        if user and bcrypt.checkpw(hashed_password, user.password_hash):
             session['user_id'] = user.id
-            
+            print('in one')
             return make_response(user.to_dict(), 200)
-        elif user and not bcrypt.checkpw(password.encode('utf-8'), user.password_hash):
+        elif user and not bcrypt.checkpw(hashed_password, user.password_hash):
+            print('in two')
             return make_response({'error': 'Incorrect password'}, 401)
         else:
+            print('in three')
             return make_response({'error': 'User does not exist'}, 401)
     except Exception as e:
+        print('we are in the final exception')
         return make_response({'error': str(e)}, 500)
 
 @app.route('/api/logout', methods=['DELETE'])

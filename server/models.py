@@ -30,10 +30,9 @@ class User(db.Model, SerializerMixin):
     
     id = db.Column(db.Integer, primary_key=True)
     
-    print('right before error')
     username = db.Column(db.String, unique=True, nullable=False)
-    print('right after error')
     _password_hash = db.Column(db.String, nullable=False)
+    print('we got our password hash: ', _password_hash)
     
     created_at = db.Column(db.DateTime, server_default=db.func.now())
     updated_at = db.Column(db.DateTime, onupdate=db.func.now())
@@ -55,10 +54,12 @@ class User(db.Model, SerializerMixin):
     def password_hash(self, password):
         # print(password)
         # print(type(password))
+        print('setting password hash: ', password)
         password_hash = password
         self._password_hash = password_hash
 
     def authenticate(self, password):
+        print('authenticating ')
         return bcrypt.check_password_hash(self.password_hash, password.encode('utf-8'))
     
     @validates('username')
