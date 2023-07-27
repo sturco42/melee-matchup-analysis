@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { Button } from 'semantic-ui-react'
 
 const CharCard = ({ name, id, user, addUserChar, removeUserChar, addNotebook }) => {
-    const [char, setChar] = useState([])
+    // const [char, setChar] = useState([])
 
     const handleAddMain = () => {
         fetch('/api/user-characters', {

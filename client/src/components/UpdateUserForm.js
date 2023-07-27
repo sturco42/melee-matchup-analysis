@@ -1,10 +1,10 @@
 import { useFormik } from 'formik';
 import * as yup from 'yup';
-import { useHistory } from 'react-router-dom';
+// import { useHistory } from 'react-router-dom';
 import { Form, Button, Message } from 'semantic-ui-react';
 
 const UpdateUserForm = ({ updateUser, user, toggleForm }) => {
-  const history = useHistory();
+  // const history = useHistory();
 
   const updateSchema = yup.object().shape({
     username: yup

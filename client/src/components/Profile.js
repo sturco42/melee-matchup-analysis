@@ -1,5 +1,5 @@
 import React, { useState, useContext } from 'react'
-import { Button, Message, Card } from 'semantic-ui-react'
+import { Button } from 'semantic-ui-react'
 import { UserContext } from './UserContext'
 import UpdateUserForm from './UpdateUserForm'
 

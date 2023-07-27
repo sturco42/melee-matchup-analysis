@@ -1,13 +1,13 @@
-import React, { useContext } from 'react'
+// import React, { useContext } from 'react'
 import { useHistory } from 'react-router-dom'
 import { useFormik } from 'formik'
 import { Form, Button } from 'semantic-ui-react'
 import * as yup from 'yup'
-import { UserContext } from './UserContext'
+// import { UserContext } from './UserContext'
 // import Clips from './Clips'
 
 const ClipForm = ( {notebook_id} ) => {
-    const user = useContext(UserContext)
+    // const user = useContext(UserContext)
     const history = useHistory()
 
     const formSchema = yup.object().shape({
